@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+body {
+  font-family: 'Indie Flower', cursive !important;
+  background: #FDE3A7;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+::selection {
+  background: transparent;
+}
+
+/* posisi partikel */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === TEKS JUDUL === */
+h4 {
+  font-size: 17px;
+  line-height: 1;
+  font-family: 'Amatic SC', cursive !important;
+  margin: 0;
+  padding: 0;
+}
+
+.color1 {
+  color: #1BBC9B;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.color2 {
+  color: #C0392B;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 0;
+  margin-bottom: 14px; /* jarak ke teks hitam diperlebar sedikit */
+}
+
+/* === KARTU DASAR === */
+.card {
+  color: #013243;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 400px;
+  background: #e0e1dc;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) perspective(2000px);
+  box-shadow: inset 300px 0 50px rgba(0,0,0,.4), 20px 0 60px rgba(0,0,0,.3);
+  transition: 1s;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+.card:hover {
+  transform: translate(-50%, -50%) perspective(2000px) rotate(15deg) scale(1.15);
+  box-shadow: inset 20px 0 50px rgba(0,0,0,.4), 0 10px 100px rgba(0,0,0,.4);
+}
+
+/* sisi buku */
+.card:before {
+  content:'';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #cfd2cf;
+  transform-origin: bottom;
+  transform: skewX(-45deg);
+}
+
+.card:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 5px;
+  height: 100%;
+  background: #b5b8b3;
+  transform-origin: left;
+  transform: skewY(-45deg);
+}
+
+/* === SAMPUL DEPAN === */
+.card .imgBox {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-origin: left;
+  transition: .7s;
+  background: radial-gradient(circle at top left, #e6e7e5 0%, #d6d7d5 100%);
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* efek kilau lembut di sampul */
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: shineMove 5s infinite;
+  opacity: 0.5;
+}
+
+@keyframes shineMove {
+  0% { left: -100%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+
+.card .imgBox img {
+  min-width: 230px;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.25));
+  transition: transform 0.5s, opacity 0.5s ease;
+}
+
+/* TEKS DI SAMPUL */
+.cover-text {
+  position: absolute;
+  bottom: 25px;
+  font-family: 'Amatic SC', cursive;
+  font-size: 18px;
+  color: #444;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  letter-spacing: 1px;
+}
+
+/* efek buka */
+.card:hover .imgBox {
+  transform: rotateY(-135deg);
+}
+
+/* gambar & tulisan hilang saat dibuka */
+.card:hover .imgBox img,
+.card:hover .cover-text {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* === HALAMAN DALAM === */
+.card .bark {
+  position: absolute;
+  background: #e0e1dc;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: .7s;
+}
+
+.card:hover .bark {
+  opacity: 1;
+  transition: .6s;
+  box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
+}
+
+/* TEKS DI HALAMAN DALAM */
+.card .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 0 0 10px;
+  z-index: -1;
+  margin-top: 45px;
+}
+
+.card .details p {
+  font-size: 11px;
+  line-height: 1.05;
+  transform: rotate(-5deg);
+  margin: 1px 0;
+  padding: 0 0 0 18px;
+}
+
+.card .details h4 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* ==== ANIMASI FADE-IN SAAT BUKU DIBUKA ==== */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(10px) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-5deg);
+  }
+}
+
+/* semua teks awalnya tersembunyi */
+.card .details h4,
+.card .details p {
+  opacity: 0;
+}
+
+/* animasi fade-in aktif saat dibuka */
+.card:hover .details h4,
+.card:hover .details p {
+  animation: fadeInText 2.5s ease-in-out forwards;
+}
+
+/* delay agar muncul satu-satu dengan lembut */
+.card:hover .details h4:nth-child(1) { animation-delay: 0.8s; }
+.card:hover .details h4:nth-child(2) { animation-delay: 1.4s; }
+.card:hover .details p:nth-child(3) { animation-delay: 2s; }
+.card:hover .details p:nth-child(4) { animation-delay: 2.4s; }
+.card:hover .details p:nth-child(5) { animation-delay: 2.8s; }
+.card:hover .details p:nth-child(6) { animation-delay: 3.2s; }
+.card:hover .details p:nth-child(7) { animation-delay: 3.6s; }
+.card:hover .details p:nth-child(8) { animation-delay: 4s; }
+.card:hover .details p:nth-child(9) { animation-delay: 4.4s; }
+.card:hover .details p:nth-child(10) { animation-delay: 4.8s; }
+
+.card:hover .details p:nth-child(11) { animation-delay: 5.2s; }
+.card:hover .details p:nth-child(12) { animation-delay: 5.6s; }
+.card:hover .details p:nth-child(13) { animation-delay: 6.0s; }
+.card:hover .details p:nth-child(14) { animation-delay: 6.4s; }
+.card:hover .details p:nth-child(15) { animation-delay: 6.8s; }
